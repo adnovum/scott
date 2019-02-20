@@ -1,14 +1,22 @@
+buildscript{
+    dependencies{
+        classpath fileTree(dir:'../../scott-gradle-plugin/build/libs', include: ['*.jar'])
+    }
+}
+
 plugins {
     id 'java'
     id "hu.advancedweb.scott-gradle-plugin" version "3.4.1"
 }
 
+apply plugin: 'hu.advancedweb.scott-gradle-plugin'
 group 'hu.advancedweb'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 

@@ -1,7 +1,9 @@
 package hu.advancedweb.scott.instrumentation.transformation.param;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.MethodVisitor;
@@ -37,18 +39,41 @@ public class TestDiscoveryMethodVisitor extends MethodVisitor {
 	
 	@Override
 	public void visitEnd() {
-		for (String annotationDesc : annotations) {
-			if (AnnotationMatcher.match(annotationDesc, "scott.track.method_annotation", new String[] {"org.junit.Test", "org.junit.jupiter.api.Test", "org.junit.jupiter.api.TestFactory", "cucumber.api.java.*"})) {
+		// TODO: make it configurable
+		Set<String> blacklistedMethodNames = new HashSet<>();
+		blacklistedMethodNames.add("toString");
+		blacklistedMethodNames.add("equals");
+		blacklistedMethodNames.add("hashCode");
+		blacklistedMethodNames.add("compareTo");
+		if (!blacklistedMethodNames.contains(methodName)) {
+			if (!annotations.isEmpty()) {
+				for (String annotationDesc : annotations) {
+					if (true /*TODO: make it configurable: instrument everything, regardless of annotations*/ || AnnotationMatcher
+
+							.match(annotationDesc, "scott.track.method_annotation",
+									new String[]
+											{ "org.junit.Test", "org.junit.jupiter.api.Test", "org.junit.jupiter.api.TestFactory",
+													"cucumber.api.java.*" })) {
+						transformationParameters.markMethodForTracking(methodName, methodDesc, methodSignature);
+						transformationParameters.markMethodForClearingTrackedData(methodName, methodDesc, methodSignature);
+					}
+
+					if (false && AnnotationMatcher
+							.match(annotationDesc, "scott.inject_junit4_rule.method_annotation",
+									new String[] { "org.junit.Test" })) {
+
+						transformationParameters.markClassForJUnit4RuleInjection();
+					}
+
+					if (false && AnnotationMatcher.match(annotationDesc, "scott.inject_junit5_extension.method_annotation",
+							new String[] { "org.junit.jupiter.api.Test", "org.junit.jupiter.api.TestFactory" })) {
+						transformationParameters.markClassForJUnit5ExtensionInjection();
+					}
+				}
+			} else {
+				/*TODO: make it configurable: instrument everything, regardless of annotations*/
 				transformationParameters.markMethodForTracking(methodName, methodDesc, methodSignature);
 				transformationParameters.markMethodForClearingTrackedData(methodName, methodDesc, methodSignature);
-			}
-			
-			if (AnnotationMatcher.match(annotationDesc, "scott.inject_junit4_rule.method_annotation", new String[] {"org.junit.Test"})) {
-				transformationParameters.markClassForJUnit4RuleInjection();
-			}
-			
-			if (AnnotationMatcher.match(annotationDesc, "scott.inject_junit5_extension.method_annotation", new String[] {"org.junit.jupiter.api.Test", "org.junit.jupiter.api.TestFactory"})) {
-				transformationParameters.markClassForJUnit5ExtensionInjection();
 			}
 		}
 		super.visitEnd();

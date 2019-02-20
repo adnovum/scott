@@ -18,7 +18,8 @@ import org.objectweb.asm.Opcodes;
  */
 public class StateEmitterTestMethodVisitor extends MethodVisitor {
 
-	private static final String TRACKER_CLASS = "hu/advancedweb/scott/runtime/track/StateRegistry";
+	// TODO: make it configurable
+	private static final String TRACKER_CLASS = "hu/advancedweb/scott/runtime/track/StateRegistry4Log";
 	private int lineNumber;
 	private int lineNumberForMethodCallTrack;
 
