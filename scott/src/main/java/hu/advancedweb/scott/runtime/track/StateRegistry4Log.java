@@ -19,47 +19,47 @@ public class StateRegistry4Log {
 	
 	public static void trackFieldState(String value, String name, int lineNumber, boolean isStatic, String owner) {
 		final String key = getFieldKey(name, isStatic, owner);
-		System.out.println("field " + new StateData(lineNumber, value, key));
+		System.out.println("field " + new StateData(lineNumber, value, key, key));
 	}
 	
 	public static void trackFieldState(byte value, String name, int lineNumber, boolean isStatic, String owner) {
 		final String key = getFieldKey(name, isStatic, owner);
-		System.out.println("field " + new StateData(lineNumber, Byte.toString(value), key));
+		System.out.println("field " + new StateData(lineNumber, Byte.toString(value), key, key));
 	}
 	
 	public static void trackFieldState(short value, String name, int lineNumber, boolean isStatic, String owner) {
 		final String key = getFieldKey(name, isStatic, owner);
-		System.out.println("field " + new StateData(lineNumber, Short.toString(value), key));
+		System.out.println("field " + new StateData(lineNumber, Short.toString(value), key, key));
 	}
 	
 	public static void trackFieldState(int value, String name, int lineNumber, boolean isStatic, String owner) {
 		final String key = getFieldKey(name, isStatic, owner);
-		System.out.println("field " + new StateData(lineNumber, Integer.toString(value), key));
+		System.out.println("field " + new StateData(lineNumber, Integer.toString(value), key, key));
 	}
 	
 	public static void trackFieldState(long value, String name, int lineNumber, boolean isStatic, String owner) {
 		final String key = getFieldKey(name, isStatic, owner);
-		System.out.println("field " + new StateData(lineNumber, Long.toString(value), key));
+		System.out.println("field " + new StateData(lineNumber, Long.toString(value), key, key));
 	}
 	
 	public static void trackFieldState(float value, String name, int lineNumber, boolean isStatic, String owner) {
 		final String key = getFieldKey(name, isStatic, owner);
-		System.out.println("field " + new StateData(lineNumber, Float.toString(value), key));
+		System.out.println("field " + new StateData(lineNumber, Float.toString(value), key, key));
 	}
 	
 	public static void trackFieldState(double value, String name, int lineNumber, boolean isStatic, String owner) {
 		final String key = getFieldKey(name, isStatic, owner);
-		System.out.println("field " + new StateData(lineNumber, Double.toString(value), key));
+		System.out.println("field " + new StateData(lineNumber, Double.toString(value), key, key));
 	}
 	
 	public static void trackFieldState(boolean value, String name, int lineNumber, boolean isStatic, String owner) {
 		final String key = getFieldKey(name, isStatic, owner);
-		System.out.println("field " + new StateData(lineNumber, Boolean.toString(value), key));
+		System.out.println("field " + new StateData(lineNumber, Boolean.toString(value), key, key));
 	}
 	
 	public static void trackFieldState(char value, String name, int lineNumber, boolean isStatic, String owner) {
 		final String key = getFieldKey(name, isStatic, owner);
-		System.out.println("field " + new StateData(lineNumber, Character.toString(value), key));
+		System.out.println("field " + new StateData(lineNumber, Character.toString(value), key, key));
 	}
 	
 	public static void trackFieldState(Object value, String name, int lineNumber, boolean isStatic, String owner) {
@@ -68,7 +68,7 @@ public class StateRegistry4Log {
 		String stringValue = objectToStringIgnoreMockitoExceptions(value);
 		
 		if (stringValue != null) {
-			System.out.println("field " + new StateData(lineNumber, stringValue, key));
+			System.out.println("field " + new StateData(lineNumber, stringValue, key, key));
 		}
 	}
 	
@@ -83,57 +83,56 @@ public class StateRegistry4Log {
 	}
 
 	public static void trackVariableName(String name, int lineNumber, int var, String methodName) {
-		final String key = getVariableKey(var, methodName);
-		System.out.println("varname: " + new StateData(lineNumber, name, key));
+		// noop
 	}
 	
-	public static void trackLocalVariableState(byte value, int lineNumber, int var, String methodName) {
+	public static void trackLocalVariableState(byte value, String name, int lineNumber, int var, String methodName) {
 		final String key = getVariableKey(var, methodName);
-		System.out.println(new StateData(lineNumber, Byte.toString(value), key));
+		System.out.println(new StateData(lineNumber, Byte.toString(value), key, name));
 	}
 
-	public static void trackLocalVariableState(short value, int lineNumber, int var, String methodName) {
+	public static void trackLocalVariableState(short value, String name, int lineNumber, int var, String methodName) {
 		final String key = getVariableKey(var, methodName);
-		System.out.println(new StateData(lineNumber, Short.toString(value), key));
+		System.out.println(new StateData(lineNumber, Short.toString(value), key, name));
 	}
 
-	public static void trackLocalVariableState(int value, int lineNumber, int var, String methodName) {
+	public static void trackLocalVariableState(int value, String name, int lineNumber, int var, String methodName) {
 		final String key = getVariableKey(var, methodName);
-		System.out.println(new StateData(lineNumber, Integer.toString(value), key));
+		System.out.println(new StateData(lineNumber, Integer.toString(value), key, name));
 	}
 
-	public static void trackLocalVariableState(long value, int lineNumber, int var, String methodName) {
+	public static void trackLocalVariableState(long value, String name, int lineNumber, int var, String methodName) {
 		final String key = getVariableKey(var, methodName);
-		System.out.println(new StateData(lineNumber, Long.toString(value), key));
+		System.out.println(new StateData(lineNumber, Long.toString(value), key, name));
 	}
 
-	public static void trackLocalVariableState(float value, int lineNumber, int var, String methodName) {
+	public static void trackLocalVariableState(float value, String name, int lineNumber, int var, String methodName) {
 		final String key = getVariableKey(var, methodName);
-		System.out.println(new StateData(lineNumber, Float.toString(value), key));
+		System.out.println(new StateData(lineNumber, Float.toString(value), key, name));
 	}
 
-	public static void trackLocalVariableState(double value, int lineNumber, int var, String methodName) {
+	public static void trackLocalVariableState(double value, String name, int lineNumber, int var, String methodName) {
 		final String key = getVariableKey(var, methodName);
-		System.out.println(new StateData(lineNumber, Double.toString(value), key));
+		System.out.println(new StateData(lineNumber, Double.toString(value), key, name));
 	}
 
-	public static void trackLocalVariableState(boolean value, int lineNumber, int var, String methodName) {
+	public static void trackLocalVariableState(boolean value, String name, int lineNumber, int var, String methodName) {
 		final String key = getVariableKey(var, methodName);
-		System.out.println(new StateData(lineNumber, Boolean.toString(value), key));
+		System.out.println(new StateData(lineNumber, Boolean.toString(value), key, name));
 	}
 
-	public static void trackLocalVariableState(char value, int lineNumber, int var, String methodName) {
+	public static void trackLocalVariableState(char value, String name, int lineNumber, int var, String methodName) {
 		final String key = getVariableKey(var, methodName);
-		System.out.println(new StateData(lineNumber, Character.toString(value), key));
+		System.out.println(new StateData(lineNumber, Character.toString(value), key, name));
 	}
 	
-	public static void trackLocalVariableState(Object value, int lineNumber, int var, String methodName) {
+	public static void trackLocalVariableState(Object value, String name, int lineNumber, int var, String methodName) {
 		final String key = getVariableKey(var, methodName);
 		
 		String stringValue = objectToStringIgnoreMockitoExceptions(value);
 		
 		if (stringValue != null) {
-			System.out.println(new StateData(lineNumber, stringValue, key));
+			System.out.println(new StateData(lineNumber, stringValue, key, name));
 		}
 	}
 

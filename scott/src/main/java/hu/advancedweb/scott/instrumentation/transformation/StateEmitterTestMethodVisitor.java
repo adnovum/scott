@@ -192,7 +192,7 @@ public class StateEmitterTestMethodVisitor extends MethodVisitor {
 			}
 		}
 	}
-	
+
 	private void instrumentToTrackMethodStart(String methodName, int lineNumber) {
 		Logger.log(" - instrumentToTrackMethodStart of " + methodName + " at " + lineNumber);
 		super.visitLdcInsn(lineNumber);
@@ -203,10 +203,11 @@ public class StateEmitterTestMethodVisitor extends MethodVisitor {
 	private void instrumentToTrackVariableState(LocalVariableScope localVariableScope, int lineNumber) {
 		Logger.log(" - instrumentToTrackVariableState of variable at " + getLineNumberBoundedByScope(lineNumber, localVariableScope) + ": " + localVariableScope);
 		super.visitVarInsn(localVariableScope.variableType.loadOpcode, localVariableScope.var);
+		super.visitLdcInsn(localVariableScope.name);
 		super.visitLdcInsn(getLineNumberBoundedByScope(lineNumber, localVariableScope));
 		super.visitLdcInsn(localVariableScope.var);
 		super.visitLdcInsn(methodName);
-		super.visitMethodInsn(Opcodes.INVOKESTATIC, TRACKER_CLASS, "trackLocalVariableState", "(" + localVariableScope.variableType.desc + "IILjava/lang/String;)V", false);
+		super.visitMethodInsn(Opcodes.INVOKESTATIC, TRACKER_CLASS, "trackLocalVariableState", "(" + localVariableScope.variableType.desc + "Ljava/lang/String;IILjava/lang/String;)V", false);
 	}
 	
 	private int getLineNumberBoundedByScope(int lineNumber, LocalVariableScope localVariableScope) {

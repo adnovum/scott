@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import hu.advancedweb.scott.instrumentation.transformation.TestClassTransformer;
-
+// TODO: create a tool that transforms classes in place
 public class TestClassTransformerRunner {
 	
 	public static void main(String[] args) throws Exception {
